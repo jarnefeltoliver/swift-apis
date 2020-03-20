@@ -13,6 +13,8 @@
 // limitations under the License.
 
 #if USING_X10_BACKEND
+import x10_xla_scalar_type
+@_implementationOnly
 import x10_xla_tensor_wrapper
 
 /// A type whose nested floating-point tensor properties and elements can be converted from full

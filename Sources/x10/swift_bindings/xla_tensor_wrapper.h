@@ -21,6 +21,8 @@
 #include <stdlib.h>
 
 #include "swift_bindings/device_wrapper.h"
+#include "swift_bindings/tf_op_modes.h"
+#include "swift_bindings/xla_scalar_type.h"
 
 #ifdef __cplusplus
 #include "tensorflow/compiler/tf2xla/xla_tensor/tensor.h"
@@ -46,34 +48,6 @@ typedef struct OpaqueString {
 
 XLAAnnotationScope* MakeAnnotationScope(const char* scope);
 void DestroyAnnotationScope(XLAAnnotationScope* scope);
-
-// Scalar utilities:
-#define LIST_SCALAR_TYPES(_)     \
-  _(Bool, Bool, bool)            \
-  _(Float, Float, float)         \
-  _(BFloat16, BFloat16, int16_t) \
-  _(Half, Half, int16_t)         \
-  _(Double, Double, double)      \
-  _(UInt8, Byte, uint8_t)        \
-  _(Int8, Char, int8_t)          \
-  _(Int16, Short, int16_t)       \
-  _(Int32, Int, int32_t)         \
-  _(Int64, Long, int64_t)
-
-enum XLATensorScalarType {
-#define DEFINE_ENUM_CASE(name, aten_name, type) XLATensorScalarType_##name,
-  LIST_SCALAR_TYPES(DEFINE_ENUM_CASE)
-#undef DEFINE_ENUM_CASE
-};
-
-enum XLAScalarTypeTag { XLAScalarTypeTag_i, XLAScalarTypeTag_d };
-typedef struct XLAScalar {
-  enum XLAScalarTypeTag tag;
-  union Value {
-    int64_t i;
-    double d;
-  } value;
-} XLAScalar;
 
 #ifdef __cplusplus
 at::ScalarType ToScalarType(XLATensorScalarType type);
@@ -115,32 +89,11 @@ void destroyXLAShape(OpaqueXLAShape* shape);
 size_t XLAShape_getRank(OpaqueXLAShape* shape);
 const int64_t* XLAShape_getDimensions(OpaqueXLAShape* shape);
 
-enum TFPadding {
-  TFPadding_VALID = 1,     // No padding.
-  TFPadding_SAME = 2,      // Input and output layers have the same size.
-  TFPadding_EXPLICIT = 3,  // Padding is explicitly specified
-};
-
-// Tensor format for input/output activations used in convolution operations.
-// The mnemonics specify the meaning of each tensor dimension sorted from
-// largest to smallest memory stride.
-// N = Batch, H = Image Height, W = Image Width, C = Number of Channels.
-enum TFDataFormat {
-  TFDataFormat_NHWC = 0,
-  TFDataFormat_NCHW = 1,
-  TFDataFormat_NCHW_VECT_C = 2,
-};
-
 #ifdef __cplusplus
 namespace x10 {
 tensorflow::TensorFormat ToTFFormat(TFDataFormat data_format);
 }  // namespace x10
 #endif
-
-enum TFMirrorPadMode {
-  TFMirrorPadMode_REFLECT = 1,
-  TFMirrorPadMode_SYMMETRIC = 2,
-};
 
 // XLA utilities:
 
@@ -194,12 +147,6 @@ typedef struct StridedSliceSpec {
   Int64ArrayRef processing_sizes;
   Int64ArrayRef final_sizes;
 } StridedSliceSpec;
-
-typedef struct PaddingConfigDimension {
-  int64_t edge_padding_low;
-  int64_t edge_padding_high;
-  int64_t interior_padding;
-} PaddingConfigDimension;
 
 typedef struct PaddingConfig {
   const PaddingConfigDimension* dimensions;

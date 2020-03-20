@@ -13,7 +13,11 @@
 // limitations under the License.
 
 import x10_device
+import x10_tf_op_modes
+@_implementationOnly
 import x10_xla_tensor_tf_ops
+import x10_xla_scalar_type
+@_implementationOnly
 import x10_xla_tensor_wrapper
 
 /// Type-erased tensor type on which the fundamental operators are implemented.

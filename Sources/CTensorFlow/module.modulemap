@@ -3,3 +3,15 @@ module CTensorFlow {
 
   link "tensorflow"
 }
+
+module x10_cdevice {
+  header "cdevice.h"
+}
+
+module x10_tf_op_modes {
+  header "tf_op_modes.h"
+}
+
+module x10_xla_scalar_type {
+  header "xla_scalar_type.h"
+}

@@ -16,8 +16,10 @@
 // support the current tensorflow API.
 
 import x10_device
+import x10_tf_op_modes
+import x10_xla_scalar_type
+@_implementationOnly
 import x10_xla_tensor_tf_ops
-import x10_xla_tensor_wrapper
 
 @available(
   *, deprecated, renamed: "_Raw",

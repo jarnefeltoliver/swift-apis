@@ -1,9 +1,21 @@
+module x10_cdevice {
+  header "swift_bindings/cdevice.h"
+}
+
 module x10_device_wrapper {
   header "swift_bindings/device_wrapper.h"
 }
 
+module x10_tf_op_modes {
+  header "swift_bindings/tf_op_modes.h"
+}
+
 module x10_xla_tensor_tf_ops {
   header "swift_bindings/xla_tensor_tf_ops.h"
+}
+
+module x10_xla_scalar_type {
+  header "swift_bindings/xla_scalar_type.h"
 }
 
 module x10_xla_tensor_wrapper {

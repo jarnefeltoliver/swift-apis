@@ -17,6 +17,8 @@
 #ifndef X10_DEVICE_WRAPPER_H_
 #define X10_DEVICE_WRAPPER_H_
 
+#include "swift_bindings/cdevice.h"
+
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -25,13 +27,6 @@
 
 extern "C" {
 #endif
-
-enum DeviceType { CPU_DEVICE, GPU_DEVICE, TPU_DEVICE, REMOTE_TPU_DEVICE };
-
-struct CDevice {
-  enum DeviceType hw_type;
-  int ordinal;
-};
 
 struct DeviceList {
   const struct CDevice* devices;

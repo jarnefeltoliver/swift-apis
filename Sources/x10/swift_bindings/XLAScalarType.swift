@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import x10_xla_tensor_wrapper
+import x10_xla_scalar_type
 
 extension XLAScalar {
   init(_ v: Double) {
