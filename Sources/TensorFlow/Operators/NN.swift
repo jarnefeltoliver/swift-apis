@@ -823,7 +823,7 @@ func _vjpAvgPool3D<Scalar: TensorFlowFloatingPoint>(
 
 /// Returns a 2-D fractional max pooling, with the specified pooling ratios.
 ///
-/// Note: `fractionalMaxPool` does not have an XLA implementation, and thus may have performance implications.
+/// Note: `fractionalMaxPool2D` does not have an XLA implementation, and thus may have performance implications.
 ///
 /// - Parameters:
 ///   - input: A Tensor. 4-D with shape `[batch, height, width, channels]`.
